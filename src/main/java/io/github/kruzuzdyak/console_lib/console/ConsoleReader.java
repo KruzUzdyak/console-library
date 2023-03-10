@@ -6,7 +6,7 @@ public class ConsoleReader {
 
     private final Scanner scanner = new Scanner(System.in);
 
-    public String readInput(){
+    public String readLine(){
         return scanner.nextLine();
     }
 }

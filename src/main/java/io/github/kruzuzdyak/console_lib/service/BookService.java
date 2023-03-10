@@ -2,15 +2,14 @@ package io.github.kruzuzdyak.console_lib.service;
 
 import io.github.kruzuzdyak.console_lib.entity.Book;
 import io.github.kruzuzdyak.console_lib.storage.BookStorage;
+import io.github.kruzuzdyak.console_lib.factory.StorageFactory;
 
 import java.util.List;
 import java.util.Optional;
 
 public class BookService {
 
-    public static final BookService BOOK_SERVICE = new BookService();
-
-    private final BookStorage storage = new BookStorage();
+    private final BookStorage storage = StorageFactory.INSTANCE.getBookStorage();
 
     public List<Book> findAll() {
         return storage.findAll();

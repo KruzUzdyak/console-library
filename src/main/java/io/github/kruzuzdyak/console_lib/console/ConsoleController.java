@@ -1,5 +1,7 @@
 package io.github.kruzuzdyak.console_lib.console;
 
+import io.github.kruzuzdyak.console_lib.factory.ControllerFactory;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -7,20 +9,22 @@ public class ConsoleController {
 
     private final ConsoleReader reader = new ConsoleReader();
     private final ConsoleWriter writer = new ConsoleWriter();
-    private final Map<String, Action> actions;
+    private final Map<String, ConsoleAction> actions;
+
+    private boolean active = true;
 
     public ConsoleController() {
         actions = new HashMap<>();
-        actions.put("1", BookController.INSTANCE::run);
-        actions.put("0", () -> System.exit(0));
+        actions.put("1", ControllerFactory.INSTANCE.getBookController()::run);
+        actions.put("0", () -> active = false);
     }
 
     public void run() {
-        writer.write("Welcome!");
-        while (true) {
-            writer.write("1 - books");
-            String action = reader.readInput();
-            actions.getOrDefault(action, () -> writer.write("Unknown action")).run();
+        writer.print("Welcome!");
+        while (active) {
+            writer.print("1 - books, 0 - exit");
+            String action = reader.readLine();
+            actions.getOrDefault(action, ConsoleAction::unknown).act();
         }
     }
 }
