@@ -9,7 +9,9 @@ public interface Storage<T> {
 
     Optional<T> findByName(String name);
 
-    void create(T entity);
+    boolean create(T entity);
 
-    void delete(T entity);
+    boolean deleteOne(T entity);
+
+    boolean deleteAll(T entity);
 }

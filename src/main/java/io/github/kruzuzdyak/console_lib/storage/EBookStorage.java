@@ -20,12 +20,17 @@ public class EBookStorage implements Storage<EBook> {
     }
 
     @Override
-    public void create(EBook entity) {
-
+    public boolean create(EBook entity) {
+        return false;
     }
 
     @Override
-    public void delete(EBook entity) {
+    public boolean deleteOne(EBook entity) {
+        return false;
+    }
 
+    @Override
+    public boolean deleteAll(EBook entity) {
+        return false;
     }
 }

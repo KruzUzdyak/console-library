@@ -20,12 +20,17 @@ public class UserStorage implements Storage<User> {
     }
 
     @Override
-    public void create(User entity) {
-
+    public boolean create(User entity) {
+        return false;
     }
 
     @Override
-    public void delete(User entity) {
+    public boolean deleteOne(User entity) {
+        return false;
+    }
 
+    @Override
+    public boolean deleteAll(User entity) {
+        return false;
     }
 }
