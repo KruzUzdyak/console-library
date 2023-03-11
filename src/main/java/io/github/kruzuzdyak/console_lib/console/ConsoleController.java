@@ -16,6 +16,8 @@ public class ConsoleController {
     public ConsoleController() {
         actions = new HashMap<>();
         actions.put("1", ControllerFactory.INSTANCE.getBookController()::run);
+        actions.put("2", ControllerFactory.INSTANCE.geteBookController()::run);
+        actions.put("3", ControllerFactory.INSTANCE.getUserController()::run);
         actions.put("0", () -> active = false);
     }
 

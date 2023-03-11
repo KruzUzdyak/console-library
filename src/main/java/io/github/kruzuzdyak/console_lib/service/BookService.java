@@ -1,33 +1,19 @@
 package io.github.kruzuzdyak.console_lib.service;
 
 import io.github.kruzuzdyak.console_lib.entity.Book;
-import io.github.kruzuzdyak.console_lib.storage.BookStorage;
-import io.github.kruzuzdyak.console_lib.factory.StorageFactory;
 
 import java.util.List;
 import java.util.Optional;
 
-public class BookService {
+public interface BookService {
 
-    private final BookStorage storage = StorageFactory.INSTANCE.getBookStorage();
+    List<Book> findAll();
 
-    public List<Book> findAll() {
-        return storage.findAll();
-    }
+    Optional<Book> findByName(String name);
 
-    public Optional<Book> findByName(String name) {
-        return storage.findByName(name);
-    }
+    boolean create(Book book);
 
-    public boolean create(Book book) {
-        return storage.create(book);
-    }
+    boolean deleteOne(String name);
 
-    public boolean deleteOne(String name) {
-        return storage.findByName(name).filter(storage::deleteOne).isPresent();
-    }
-
-    public boolean delete(String name) {
-        return storage.findByName(name).filter(storage::deleteAll).isPresent();
-    }
+    boolean delete(String name);
 }

@@ -1,4 +1,6 @@
-package io.github.kruzuzdyak.console_lib.storage;
+package io.github.kruzuzdyak.console_lib.storage.impl;
+
+import io.github.kruzuzdyak.console_lib.storage.Storage;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -76,6 +78,7 @@ public abstract class AbstractStorage<T> implements Storage<T> {
                 }
                 writer.append(current).append('\n');
             }
+            writer.flush();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -96,6 +99,7 @@ public abstract class AbstractStorage<T> implements Storage<T> {
                     writer.append(current).append('\n');
                 }
             }
+            writer.flush();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
