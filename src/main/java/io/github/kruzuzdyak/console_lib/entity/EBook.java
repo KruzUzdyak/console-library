@@ -2,12 +2,12 @@ package io.github.kruzuzdyak.console_lib.entity;
 
 import java.util.Objects;
 
-public class EBook extends AbstractBook{
+public class EBook extends Book {
 
     private String url;
 
-    public EBook(String title, String author, String url) {
-        super(title, author);
+    public EBook(String title, String author, String publishingYear, String url) {
+        super(title, author, publishingYear);
         this.url = url;
     }
 
@@ -38,5 +38,15 @@ public class EBook extends AbstractBook{
     @Override
     public int hashCode() {
         return super.hashCode() + Objects.hash(url);
+    }
+
+    @Override
+    public String toString() {
+        return "EBook{" +
+                "url='" + url + '\'' +
+                ", name='" + name + '\'' +
+                ", author='" + author + '\'' +
+                ", publishingYear='" + publishingYear + '\'' +
+                '}';
     }
 }

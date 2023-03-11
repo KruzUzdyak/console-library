@@ -1,5 +1,6 @@
 package io.github.kruzuzdyak.console_lib.console;
 
+import io.github.kruzuzdyak.console_lib.console.validator.BookValidator;
 import io.github.kruzuzdyak.console_lib.entity.Book;
 import io.github.kruzuzdyak.console_lib.factory.ServiceFactory;
 import io.github.kruzuzdyak.console_lib.service.BookService;
@@ -10,6 +11,8 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import static io.github.kruzuzdyak.console_lib.console.ControllerUtil.requestUserInput;
+
 public class BookController {
 
     private static final String INTERFACE_MESSAGE =
@@ -18,12 +21,12 @@ public class BookController {
              2 - find book by name
              3 - add new book
              4 - remove one book by name
-             5 - remove
+             5 - remove all books by name
              0 - back
             """;
 
-    private final ConsoleWriter writer = new ConsoleWriter();
-    private final ConsoleReader reader = new ConsoleReader();
+    private final ConsoleWriter writer = ConsoleWriter.INSTANCE;
+    private final ConsoleReader reader = ConsoleReader.INSTANCE;
     private final BookService service = ServiceFactory.INSTANCE.getBookService();
     private final Map<String, ConsoleAction> actions;
 
@@ -33,6 +36,9 @@ public class BookController {
         actions = new HashMap<>();
         actions.put("1", this::listAllBooks);
         actions.put("2", this::findByName);
+        actions.put("3", this::createNewBook);
+        actions.put("4", this::deleteOneBookByName);
+        actions.put("5", this::deleteAllBooksByName);
         actions.put("0", () -> active = false);
     }
 
@@ -49,18 +55,50 @@ public class BookController {
         List<String> books = service.findAll().stream()
                                  .map(this::mapToString)
                                  .collect(Collectors.toList());
-        writer.printTable(books);
+        writer.print(books);
     }
 
     private void findByName() {
-        writer.print("Input name:");
-        String name = reader.readLine();
+        String name = requestUserInput("Input book name", "Invalid name", BookValidator::validateName);
         Optional<Book> searchResult = service.findByName(name);
 
         searchResult.ifPresentOrElse(
             (book) -> writer.print(mapToString(book)),
             () -> writer.print("No books found")
         );
+    }
+
+    private void createNewBook() {
+        String name = requestUserInput("Input book name", "Invalid book name", BookValidator::validateName);
+        String author = requestUserInput("Input book author name", "Invalid author name", BookValidator::validateAuthor);
+        String year = requestUserInput("Input publishing year", "Invalid year value", BookValidator::validatePublishingYear);
+        Book book = new Book(name, author, year);
+
+        if (service.create(book)) {
+            writer.print("Successfully created");
+        } else {
+            writer.print("Creation failure");
+        }
+    }
+
+    private void deleteOneBookByName() {
+        String name = requestUserInput("Input book name to delete", "Invalid name", BookValidator::validateName);
+
+        if (service.deleteOne(name)) {
+            writer.print("Successfully deleted");
+        } else {
+            writer.print("Deletion error");
+        }
+    }
+
+    private void deleteAllBooksByName() {
+        String name = requestUserInput("Input book name to delete", "Invalid name", BookValidator::validateName);
+
+        if (service.delete(name)) {
+            writer.print("Successfully deleted");
+        } else {
+            writer.print("Deletion error");
+        }
     }
 
     private String mapToString(Book book) {

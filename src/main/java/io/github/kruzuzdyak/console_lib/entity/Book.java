@@ -2,16 +2,35 @@ package io.github.kruzuzdyak.console_lib.entity;
 
 import java.util.Objects;
 
-public class Book extends AbstractBook {
+public class Book {
 
-    private String publishingYear;
+    protected String name;
+    protected String author;
+    protected String publishingYear;
 
     public Book(String title, String author, String publishingYear) {
-        super(title, author);
+        this.name = title;
+        this.author = author;
         this.publishingYear = publishingYear;
     }
 
     public Book() {
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
     }
 
     public String getPublishingYear() {
@@ -30,13 +49,14 @@ public class Book extends AbstractBook {
         if (object == null || getClass() != object.getClass()) {
             return false;
         }
-        Book book = (Book) object;
-        return super.equals(book) &&
-                Objects.equals(publishingYear, book.publishingYear);
+        Book that = (Book) object;
+        return Objects.equals(name, that.name) &&
+                Objects.equals(author, that.author) &&
+                Objects.equals(publishingYear, that.publishingYear);
     }
 
     @Override
     public int hashCode() {
-        return super.hashCode() + Objects.hash(publishingYear);
+        return Objects.hash(name, author, publishingYear);
     }
 }

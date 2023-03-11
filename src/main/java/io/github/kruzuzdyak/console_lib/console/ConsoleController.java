@@ -7,8 +7,8 @@ import java.util.Map;
 
 public class ConsoleController {
 
-    private final ConsoleReader reader = new ConsoleReader();
-    private final ConsoleWriter writer = new ConsoleWriter();
+    private final ConsoleReader reader = ConsoleReader.INSTANCE;
+    private final ConsoleWriter writer = ConsoleWriter.INSTANCE;
     private final Map<String, ConsoleAction> actions;
 
     private boolean active = true;
