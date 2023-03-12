@@ -74,7 +74,7 @@ public class UserController {
         password = Base64.getEncoder().encodeToString(password.getBytes());
         String email = requestUserInput("Input email", "Invalid email", validator::validateEmail);
         String role = requestUserInput("Input role (USER, ADMIN)", "Invalid role", validator::validateRole);
-        User user = new User(name, password, email, Role.valueOf(role));
+        User user = new User(name, password, email, Role.valueOf(role.toUpperCase()));
 
         if (service.create(user)) {
             writer.print("Successfully created");
