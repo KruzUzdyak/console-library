@@ -4,16 +4,26 @@ import java.util.Objects;
 
 public class User {
 
+    private String name;
     private String password;
     private String email;
     private Role role;
 
     private User() {}
 
-    public User(String password, String email, Role role) {
+    public User(String name, String password, String email, Role role) {
+        this.name = name;
         this.password = password;
         this.email = email;
         this.role = role;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getPassword() {
@@ -49,22 +59,14 @@ public class User {
             return false;
         }
         User user = (User) object;
-        return Objects.equals(password, user.password) &&
+        return Objects.equals(name, user.name) &&
+                Objects.equals(password, user.password) &&
                 Objects.equals(email, user.email) &&
                 role == user.role;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(password, email, role);
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "password='" + password + '\'' +
-                ", email='" + email + '\'' +
-                ", role=" + role +
-                '}';
+        return Objects.hash(name, password, email, role);
     }
 }

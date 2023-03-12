@@ -24,7 +24,7 @@ public class ConsoleController {
     public void run() {
         writer.print("Welcome!");
         while (active) {
-            writer.print("1 - books, 0 - exit");
+            writer.print("1 - books, 2 - ebooks, 3 - users, 0 - exit");
             String action = reader.readLine();
             actions.getOrDefault(action, ConsoleAction::unknown).act();
         }

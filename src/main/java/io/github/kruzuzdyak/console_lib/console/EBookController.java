@@ -30,7 +30,7 @@ public class EBookController {
     private final EBookValidator validator = new EBookValidator();
     private final Map<String, ConsoleAction> actions;
 
-    private boolean active = true;
+    private boolean active;
 
     public EBookController() {
         actions = new HashMap<>();
@@ -43,6 +43,7 @@ public class EBookController {
     }
 
     public void run() {
+        active = true;
         writer.print("--- EBook Interface ---");
         while (active) {
             writer.print(INTERFACE_MESSAGE);

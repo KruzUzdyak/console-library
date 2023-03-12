@@ -30,7 +30,7 @@ public class BookController {
     private final BookValidator validator = new BookValidator();
     private final Map<String, ConsoleAction> actions;
 
-    private boolean active = true;
+    private boolean active;
 
     public BookController() {
         actions = new HashMap<>();
@@ -43,6 +43,7 @@ public class BookController {
     }
 
     public void run() {
+        active = true;
         writer.print("--- Book Interface ---");
         while (active) {
             writer.print(INTERFACE_MESSAGE);

@@ -21,6 +21,7 @@ public class EBookStorageImpl extends AbstractStorage<EBook> implements EBookSto
 
     @Override
     protected String convertToString(EBook eBook) {
-        return String.format(EBOOK_PLACEHOLDER, eBook.getName(), eBook.getAuthor(), eBook.getPublishingYear(), eBook.getUrl());
+        return String.format(EBOOK_PLACEHOLDER,
+                eBook.getName(), eBook.getAuthor(), eBook.getPublishingYear(), eBook.getUrl());
     }
 }
